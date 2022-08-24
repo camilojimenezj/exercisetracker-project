@@ -1,6 +1,6 @@
 const Router = require('express').Router()
 const User = require('../models/User')
-/* const Exercise = require('../models/Exercise') */
+const moment = require('moment')
 
 // user
 Router.post('/', async (req, res) => {
@@ -27,18 +27,12 @@ Router.post('/:id/exercises', async (req, res) => {
 
   if (!user) res.status(400).json({ error: "user not found" })
   
-  const { duration, description, formDate } = req.body
+  let { duration, description, date } = req.body
 
-  let date = ''
-
-  if (!formDate) {
-    date = new Date().toString().slice(0, 15)
-  } else {
-    date = new Date(formDate).toString().slice(0, 15)
-  }
+  date = date || Date.now()
 
   const newExercise = {
-    date,
+    date: moment(date).format('ddd MMMM DD YYYY'),
     duration: Number(duration),
     description
   }
