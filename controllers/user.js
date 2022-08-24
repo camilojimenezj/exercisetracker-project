@@ -48,7 +48,7 @@ Router.post('/:id/exercises', async (req, res) => {
 
   const response = { _id: user._id, username: user.username, ...newExercise }
 
-  res.status(201).json(response)
+  res.json(response)
 })
 
 Router.get('/:id/logs', async (req, res) => {
