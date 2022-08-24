@@ -40,7 +40,7 @@ Router.post('/:id/exercises', async (req, res) => {
   user.logs = user.logs.concat(newExercise)
   await user.save()
 
-  const response = {username: user.username, ...newExercise, _id: user._id}
+  const response = { _id: user._id, username: user.username, ...newExercise }
 
   res.status(201).json(response)
 })
