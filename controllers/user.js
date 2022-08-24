@@ -27,10 +27,16 @@ Router.post('/:id/exercises', async (req, res) => {
 
   if (!user) res.status(400).json({ error: "user not found" })
   
-  let { duration, description, date } = req.body
+  const { duration, description, formDate } = req.body
 
-  if(!date) date = new Date().toString().slice(0, 15)
-  
+  let date = ''
+
+  if (!formDate) {
+    date = new Date().toString().slice(0, 15)
+  } else {
+    date = new Date(formDate).toString().slice(0, 15)
+  }
+
   const newExercise = {
     description,
     duration: Number(duration),
