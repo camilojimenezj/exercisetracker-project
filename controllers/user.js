@@ -33,7 +33,7 @@ Router.post('/:id/exercises', async (req, res) => {
   
   const newExercise = {
     date,
-    duration,
+    duration: Number(duration),
     description
   }
 
