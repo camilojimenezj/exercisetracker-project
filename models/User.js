@@ -7,7 +7,7 @@ const userSchema = new Schema({
     unique: true,
     required: true
   },
-  logs: [{
+  log: [{
     date: String,
     duration: Number,
     description: String
@@ -15,10 +15,10 @@ const userSchema = new Schema({
 }) 
 
 userSchema.virtual('count').get(function () {
-  if (!this.logs) {
+  if (!this.log) {
     return null
   }
-  return this.logs.length
+  return this.log.length
 })
 
 userSchema.set('toJSON', {
