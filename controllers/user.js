@@ -38,9 +38,9 @@ Router.post('/:id/exercises', async (req, res) => {
   }
 
   const newExercise = {
-    description,
+    date,
     duration: Number(duration),
-    date
+    description
   }
 
   user.log = user.log.concat(newExercise)
