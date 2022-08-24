@@ -32,7 +32,7 @@ Router.post('/:id/exercises', async (req, res) => {
   date = date || Date.now()
 
   const newExercise = {
-    date: moment(date).format('ddd MMMM DD YYYY'),
+    date: moment(date).format('ddd MMM DD YYYY'),
     duration: Number(duration),
     description
   }
