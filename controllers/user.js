@@ -37,7 +37,7 @@ Router.post('/:id/exercises', async (req, res) => {
     date
   }
 
-  user.logs = user.logs.concat(newExercise)
+  user.log = user.log.concat(newExercise)
   await user.save()
 
   const response = { _id: user._id, username: user.username, ...newExercise }
