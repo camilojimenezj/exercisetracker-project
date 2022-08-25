@@ -8,9 +8,8 @@ const userSchema = new Schema({
     required: true
   },
   log: [{
-    date: String,
-    duration: Number,
-    description: String
+    type: Schema.Types.ObjectId,
+    ref: 'Exercise'
   }]
 }) 
 

@@ -1,5 +1,6 @@
 const Router = require('express').Router()
 const User = require('../models/User')
+const Exercise = require('../models/Exercise')
 const moment = require('moment')
 
 // user
@@ -29,29 +30,53 @@ Router.post('/:id/exercises', async (req, res) => {
   
   let { duration, description, date } = req.body
 
-  date = date || Date.now()
+  if (!date) {
+    date = Date.now()
+  } else {
+    date = moment(date, 'YYYY-MM-DD') 
+  }
 
-  const newExercise = {
-    date: moment(date).format('ddd MMM DD YYYY'),
+  const exercise = {
+    date,
     duration: Number(duration),
     description
   }
 
-  user.log = user.log.concat(newExercise)
+  const newExercise = new Exercise(exercise)
+
+  const savedExersice = await newExercise.save()
+
+  user.log = user.log.concat(savedExersice._id)
   await user.save()
 
-  const response = { _id: user._id, username: user.username, ...newExercise }
+  const response = {
+    _id: user._id,
+    username: user.username,
+    date: moment(date).format('ddd MMM DD YYYY'),
+    duration: exercise.duration,
+    description: exercise.description
+  }
 
   res.json(response)
 })
 
 Router.get('/:id/logs', async (req, res) => {
   const { id } = req.params
+  let { from = 0, to, limit } = req.query
+
+  from = moment(from, 'YYYY-MM-DD') 
+  to = moment(to, 'YYYY-MM-DD') 
   
-  const user = await User.findById(id)
+  console.log(to)
+  
+  const user = await User.findById(id).populate({
+    path: 'log',
+    match: { date: { $gte: from, $lte: to } },
+    options: { limit: Number(limit) },
+    select: 'date description duration'
+  })
 
   res.json(user)
-
 })
 
 module.exports = Router
