@@ -33,7 +33,7 @@ Router.post('/:id/exercises', async (req, res) => {
   if (!date) {
     date = Date.now()
   } else {
-    date = moment(date, 'YYYY-MM-DD') 
+    date = moment(date, 'YYYY-MM-DD').unix() * 1000
   }
 
   const exercise = {
@@ -66,8 +66,6 @@ Router.get('/:id/logs', async (req, res) => {
 
   from = moment(from, 'YYYY-MM-DD') 
   to = moment(to, 'YYYY-MM-DD') 
-  
-  console.log(to)
   
   const user = await User.findById(id).populate({
     path: 'log',
