@@ -14,7 +14,7 @@ const exerciseSchema = new Schema({
 
 exerciseSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.date = moment(Number(returnedObject.date)).format('ddd MMM DD YYYY')
+    returnedObject.date = moment(Number(returnedObject.date)).format('ddd MMM DD YYYY').toString()
     delete returnedObject.__v
   }
 })
