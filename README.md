@@ -1,6 +1,6 @@
 # Exercise Tracker
 
-This is a Exercise Tracker project in which you can create a user and add exercises that will be saved in a database 
+This is an Exercise Tracker project in which you can create a user and add exercises that will be saved in a database 
 
 ```
 https://exercisetracker-camilo.herokuapp.com/
